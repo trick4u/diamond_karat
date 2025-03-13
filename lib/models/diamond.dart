@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import 'package:equatable/equatable.dart';
+
 class Diamond extends Equatable {
   final String lotId;
   final String size;
@@ -17,6 +19,7 @@ class Diamond extends Equatable {
   final double finalAmount;
   final String keyToSymbol;
   final String labComment;
+  final int qty;
 
   const Diamond({
     required this.lotId,
@@ -35,11 +38,13 @@ class Diamond extends Equatable {
     required this.finalAmount,
     required this.keyToSymbol,
     required this.labComment,
+    required this.qty,
   });
 
   // Convert Diamond to JSON for persistent storage
   Map<String, dynamic> toJson() {
     return {
+      'qty': qty,
       'lotId': lotId,
       'size': size,
       'carat': carat,
@@ -62,22 +67,23 @@ class Diamond extends Equatable {
   // Create Diamond from JSON
   factory Diamond.fromJson(Map<String, dynamic> json) {
     return Diamond(
-      lotId: json['lotId'],
-      size: json['size'],
-      carat: json['carat'],
-      lab: json['lab'],
-      shape: json['shape'],
-      color: json['color'],
-      clarity: json['clarity'],
-      cut: json['cut'],
-      polish: json['polish'],
-      symmetry: json['symmetry'],
-      fluorescence: json['fluorescence'],
-      discount: json['discount'],
-      perCaratRate: json['perCaratRate'],
-      finalAmount: json['finalAmount'],
-      keyToSymbol: json['keyToSymbol'],
-      labComment: json['labComment'],
+      qty: (json['qty'] as int?) ?? 1,
+      lotId: json['lotId'] as String? ?? '',
+      size: json['size'] as String? ?? '',
+      carat: (json['carat'] as num?)?.toDouble() ?? 0.0,
+      lab: json['lab'] as String? ?? '',
+      shape: json['shape'] as String? ?? '',
+      color: json['color'] as String? ?? '',
+      clarity: json['clarity'] as String? ?? '',
+      cut: json['cut'] as String? ?? '',
+      polish: json['polish'] as String? ?? '',
+      symmetry: json['symmetry'] as String? ?? '',
+      fluorescence: json['fluorescence'] as String? ?? '',
+      discount: (json['discount'] as num?)?.toDouble() ?? 0.0,
+      perCaratRate: (json['perCaratRate'] as num?)?.toDouble() ?? 0.0,
+      finalAmount: (json['finalAmount'] as num?)?.toDouble() ?? 0.0,
+      keyToSymbol: json['keyToSymbol'] as String? ?? '',
+      labComment: json['labComment'] as String? ?? '',
     );
   }
 
@@ -99,5 +105,6 @@ class Diamond extends Equatable {
         finalAmount,
         keyToSymbol,
         labComment,
+        qty,
       ];
 }
